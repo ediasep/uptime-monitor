@@ -5,3 +5,11 @@ CREATE TABLE IF NOT EXISTS targets (
 	interval INTEGER NOT NULL,
 	created_at TIMESTAMP NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS target_logs (
+	id TEXT PRIMARY KEY,
+	target_id TEXT,
+	status TEXT,
+	timestamp DATETIME,
+	FOREIGN KEY (target_id) REFERENCES targets(id)
+);

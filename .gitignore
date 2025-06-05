@@ -1,5 +1,6 @@
 build
 .vscode
+targets.db
 
 # Binaries for programs and plugins
 *.exe
