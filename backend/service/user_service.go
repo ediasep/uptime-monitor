@@ -2,7 +2,7 @@ package service
 
 import (
 	"uptime-monitor/model"
-	"uptime-monitor/repository"
+	"uptime-monitor/repository/user"
 )
 
 type UserService interface {
@@ -11,10 +11,10 @@ type UserService interface {
 }
 
 type userService struct {
-	repo repository.UserRepository
+	repo user.UserRepository
 }
 
-func NewUserService(repo repository.UserRepository) UserService {
+func NewUserService(repo user.UserRepository) UserService {
 	return &userService{repo: repo}
 }
 

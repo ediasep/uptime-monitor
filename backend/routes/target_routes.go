@@ -3,14 +3,14 @@ package routes
 import (
 	"database/sql"
 	"uptime-monitor/handler"
-	"uptime-monitor/repository"
+	target "uptime-monitor/repository/target"
 	"uptime-monitor/service"
 
 	"github.com/go-chi/chi/v5"
 )
 
 func RegisterTargetRoutes(r chi.Router, db *sql.DB) {
-	targetRepo := repository.NewTargetRepository(db)
+	targetRepo := target.NewTargetRepository(db)
 	targetService := service.NewTargetService(targetRepo)
 	targetHandler := handler.NewTargetHandler(targetService)
 

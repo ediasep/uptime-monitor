@@ -3,7 +3,7 @@ package routes
 import (
 	"database/sql"
 	"uptime-monitor/handler"
-	"uptime-monitor/repository"
+	repository "uptime-monitor/repository/user"
 	"uptime-monitor/service"
 
 	"github.com/go-chi/chi/v5"

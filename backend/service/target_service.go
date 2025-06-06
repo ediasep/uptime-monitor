@@ -2,14 +2,14 @@ package service
 
 import (
 	"uptime-monitor/model"
-	"uptime-monitor/repository"
+	target "uptime-monitor/repository/target"
 )
 
 type TargetService struct {
-	repo *repository.TargetRepository
+	repo target.TargetRepository // now using interface
 }
 
-func NewTargetService(repo *repository.TargetRepository) *TargetService {
+func NewTargetService(repo target.TargetRepository) *TargetService {
 	return &TargetService{repo: repo}
 }
 

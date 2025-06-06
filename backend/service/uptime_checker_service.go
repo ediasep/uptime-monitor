@@ -5,20 +5,21 @@ import (
 	"net/http"
 	"time"
 	"uptime-monitor/model"
-	"uptime-monitor/repository"
+	"uptime-monitor/repository/target"
+	"uptime-monitor/repository/targetlog"
 )
 
 type UptimeCheckerService struct {
-	targetRepo *repository.TargetRepository
-	logRepo    *repository.TargetLogRepository
+	targetRepo target.TargetRepository       // interface
+	logRepo    targetlog.TargetLogRepository // interface
 	eventSvc   *EventService
 	interval   time.Duration
 	stopChan   chan struct{}
 }
 
 func NewUptimeCheckerService(
-	targetRepo *repository.TargetRepository,
-	logRepo *repository.TargetLogRepository,
+	targetRepo target.TargetRepository,
+	logRepo targetlog.TargetLogRepository,
 	eventSvc *EventService,
 	interval time.Duration,
 ) *UptimeCheckerService {
