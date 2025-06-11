@@ -8,7 +8,7 @@ import {
 
 
 import { useEffect, useState } from "react";
-import { PencilIcon } from "../../icons";
+import { ChatIcon, PencilIcon, TrashBinIcon } from "../../icons";
 import { useNavigate } from "react-router";
 import Badge from "../ui/badge/Badge";
 
@@ -34,7 +34,7 @@ export default function TargetTable() {
         }
         return response.json();
       })
-      .then((data) => setTargets(data))
+      .then((data) => setTargets(Array.isArray(data) ? data : []))
       .catch((error) => console.error("Error:", error));
   }, []); // run once on mount
 
@@ -84,48 +84,63 @@ export default function TargetTable() {
 
           {/* Table Body */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {targets.map((target) => (
-              <TableRow key={target.id}>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  {target.name}
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  {target.url}
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 text-center">
-                  {target.last_status === "UP" ? (
-                    <Badge children="UP" color="success" variant="solid" />
-                  ) : (
-                    <Badge children="DOWN" color="error" variant="solid" />
-                  )}
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                  <span className="text-gray-400">
-                    {target.last_checked_at
-                      ? new Date(target.last_checked_at).toLocaleString(
-                          undefined,
-                          {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                          }
-                        )
-                      : "Never checked"}
-                  </span>
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 text-center align-middle">
-                  <span
-                    className="flex justify-center items-center h-full cursor-pointer"
-                    onClick={() => onEdit(target.id)}
-                  >
-                    <PencilIcon width={21} height={21} />
-                  </span>
+            {Array.isArray(targets) && targets.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="px-4 py-3 text-gray-500 text-center text-theme-sm dark:text-gray-400"
+                >
+                  <p className="py-6">
+                    <ChatIcon width={24} height={24} className="inline-block mr-2" />
+                    <span>No targets found</span>
+                  </p>
+                  
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              targets.map((target) => (
+                <TableRow key={target.id}>
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                    {target.name}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                    {target.url}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 text-center">
+                    {target.last_status === "UP" ? (
+                      <Badge children="UP" color="success" variant="solid" />
+                    ) : (
+                      <Badge children="DOWN" color="error" variant="solid" />
+                    )}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                    <span className="text-gray-400">
+                      {target.last_checked_at
+                        ? new Date(target.last_checked_at).toLocaleString(
+                            undefined,
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit",
+                            }
+                          )
+                        : "Never checked"}
+                    </span>
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 text-center align-middle">
+                    <span
+                      className="flex justify-center items-center h-full cursor-pointer"
+                      onClick={() => onEdit(target.id)}
+                    >
+                      <PencilIcon width={21} height={21} />
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
