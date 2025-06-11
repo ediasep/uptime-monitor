@@ -65,7 +65,7 @@ func (u *UptimeCheckerService) checkAllTargets() {
 	}
 }
 
-func (u *UptimeCheckerService) checkTarget(target model.Target) {
+func (u *UptimeCheckerService) checkTarget(target model.TargetListDto) {
 	client := &http.Client{Timeout: 5 * time.Second}
 	resp, err := client.Get(target.URL)
 

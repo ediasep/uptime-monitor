@@ -1,5 +1,14 @@
 {
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@types/react-router-dom": "^5.3.3",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.1.2",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^4.1.8"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "lucide-react": "^0.513.0",
+    "react-router-dom": "^7.6.2"
   }
 }

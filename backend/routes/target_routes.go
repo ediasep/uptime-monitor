@@ -17,5 +17,8 @@ func RegisterTargetRoutes(r chi.Router, db *sql.DB) {
 	r.Route("/targets", func(r chi.Router) {
 		r.Get("/", targetHandler.GetAllTargets)
 		r.Post("/", targetHandler.CreateTarget)
+		r.Put("/{id}", targetHandler.UpdateTarget)
+		r.Get("/{id}", targetHandler.GetTargetByID)
+		r.Delete("/{id}", targetHandler.DeleteTarget)
 	})
 }

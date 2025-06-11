@@ -15,6 +15,8 @@ import (
 	_ "uptime-monitor/docs" // swag docs
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
+
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -34,6 +36,12 @@ func main() {
 
 	// Create router and register routes
 	r := chi.NewRouter()
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:5173"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		AllowCredentials: true,
+	}))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Welcome to the Uptime Monitor API!"))

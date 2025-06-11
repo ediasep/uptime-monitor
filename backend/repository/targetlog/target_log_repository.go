@@ -47,3 +47,29 @@ func (r *targetLogRepository) CountRecentFailures(targetID string, limit int) (i
 
 	return failures, nil
 }
+
+func (r *targetLogRepository) ListByTargetID(targetID string) ([]model.TargetLog, error) {
+	rows, err := r.db.Query(
+		`SELECT id, target_id, status, timestamp FROM target_logs WHERE target_id = ? ORDER BY timestamp DESC`,
+		targetID,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var logs []model.TargetLog
+	for rows.Next() {
+		var log model.TargetLog
+		if err := rows.Scan(&log.ID, &log.TargetID, &log.Status, &log.Timestamp); err != nil {
+			return nil, err
+		}
+		logs = append(logs, log)
+	}
+	return logs, nil
+}
+
+func (r *targetLogRepository) DeleteByTargetID(targetID string) error {
+	_, err := r.db.Exec(`DELETE FROM target_logs WHERE target_id = ?`, targetID)
+	return err
+}

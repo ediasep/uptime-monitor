@@ -1,11 +1,13 @@
 package routes
 
 import (
-    "github.com/go-chi/chi/v5"
-    "database/sql"
+	"database/sql"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func RegisterAllRoutes(r chi.Router, db *sql.DB) {
-    RegisterUserRoutes(r, db)
-    RegisterTargetRoutes(r, db)
+	RegisterUserRoutes(r, db)
+	RegisterTargetRoutes(r, db)
+	RegisterTargetLogRoutes(r, db)
 }

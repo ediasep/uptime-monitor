@@ -1,0 +1,18 @@
+<svg width="280" height="60" viewBox="0 0 220 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Blue rounded square -->
+  <path d="M0 8.42105C0 3.77023 3.77023 0 8.42105 0H23.5789C28.2298 0 32 3.77023 32 8.42105V23.5789C32 28.2298 28.2298 32 23.5789 32H8.42105C3.77023 32 0 28.2298 0 23.5789V8.42105Z" fill="#465FFF"/>
+
+  <!-- Centered Heartbeat Line -->
+  <path d="M8 17H13L15 13L17 21L19 17H24"
+        stroke="white"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+    <animate attributeName="stroke-dashoffset" values="20;0;20" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="1;0.6;1" dur="1s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Uptime Monitor text -->
+  <text x="40" y="24" font-family="sans-serif" font-size="24" font-weight="bold" fill="#000000">Uptime Monitor</text>
+</svg>

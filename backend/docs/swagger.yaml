@@ -32,6 +32,17 @@ definitions:
       url:
         type: string
     type: object
+  model.TargetLog:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+      targetID:
+        type: string
+      timestamp:
+        type: string
+    type: object
   model.User:
     properties:
       email:
@@ -94,6 +105,156 @@ paths:
       summary: Create a new target
       tags:
       - targets
+  /targets/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an uptime monitoring target by its ID
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Target deleted
+          schema:
+            type: string
+        "404":
+          description: Target not found
+          schema:
+            type: string
+        "500":
+          description: Failed to delete target
+          schema:
+            type: string
+      summary: Delete a target
+      tags:
+      - targets
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a single uptime monitoring target by its ID
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Target'
+        "404":
+          description: Target not found
+          schema:
+            type: string
+        "500":
+          description: Failed to fetch target
+          schema:
+            type: string
+      summary: Get a target by ID
+      tags:
+      - targets
+    put:
+      consumes:
+      - application/json
+      description: Update an existing uptime monitoring target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Target payload
+        in: body
+        name: target
+        required: true
+        schema:
+          $ref: '#/definitions/handler.CreateTargetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Target'
+        "400":
+          description: Missing or invalid fields
+          schema:
+            type: string
+        "404":
+          description: Target not found
+          schema:
+            type: string
+        "500":
+          description: Failed to update target
+          schema:
+            type: string
+      summary: Update a target
+      tags:
+      - targets
+  /targets/{id}/logs:
+    delete:
+      consumes:
+      - application/json
+      description: Delete all logs for a specific target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Logs deleted
+          schema:
+            type: string
+        "500":
+          description: Failed to delete logs
+          schema:
+            type: string
+      summary: Delete logs by target ID
+      tags:
+      - target-logs
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all logs for a specific target
+      parameters:
+      - description: Target ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.TargetLog'
+            type: array
+        "404":
+          description: Logs not found
+          schema:
+            type: string
+        "500":
+          description: Failed to fetch logs
+          schema:
+            type: string
+      summary: Get logs by target ID
+      tags:
+      - target-logs
   /uptime:
     get:
       consumes:
