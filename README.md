@@ -13,21 +13,6 @@ This document outlines how to run the project, manage dependencies, and use the 
 
 ---
 
-## 📦 Initial Setup
-
-Before running the app for the first time, install dependencies:
-
-```sh
-make refresh-deps
-```
-
-This will:
-
-- Run `npm install` in the `frontend` folder
-- Run `go mod tidy` in the `backend` folder
-
----
-
 ## 🚀 Run Project
 
 To start both frontend and backend with hot-reloading:
