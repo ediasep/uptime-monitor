@@ -9,6 +9,7 @@ This document outlines how to run the project, manage dependencies, and use the 
 - [Go](https://golang.org/doc/install)
 - [Node.js & npm](https://nodejs.org/)
 - [Air](https://github.com/air-verse/air) for live reloading the Go backend
+  
   ```sh
     go install github.com/air-verse/air@latest
   ```
