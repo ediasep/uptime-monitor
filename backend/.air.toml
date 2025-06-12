@@ -1,0 +1,19 @@
+# .air.toml
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o tmp/main ./cmd/server"
+  bin = "tmp/main"
+  full_bin = ""
+  include_ext = ["go"]
+  exclude_dir = ["frontend", "node_modules"]
+  exclude_file = []
+  exclude_regex = ["_test.go"]
+  follow_symlink = true
+
+[log]
+  time = true
+
+[misc]
+  clean_on_exit = true

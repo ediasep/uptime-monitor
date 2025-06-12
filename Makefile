@@ -1,3 +1,27 @@
-.PHONY: run
-run:
-	npx concurrently "go run -C backend ./cmd/server" "npm --prefix frontend run dev"
+.PHONY: run setup frontend backend refresh-deps
+
+run: setup
+	npx concurrently "cd backend && air" "npm --prefix frontend run dev"
+
+setup: frontend backend
+
+frontend:
+	@if [ ! -d frontend/node_modules ]; then \
+		echo "Installing frontend dependencies..."; \
+		cd frontend && npm install; \
+	else \
+		echo "Frontend dependencies already installed."; \
+	fi
+
+backend:
+	@if [ ! -f backend/go.sum ]; then \
+		echo "Running go mod tidy for backend..."; \
+		cd backend && go mod tidy; \
+	else \
+		echo "Backend go.sum already exists, skipping go mod tidy."; \
+	fi
+
+refresh-deps:
+	@echo "Refreshing frontend and backend dependencies..."
+	cd frontend && npm install
+	cd backend && go mod tidy
