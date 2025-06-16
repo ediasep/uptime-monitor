@@ -2,6 +2,8 @@ package targetlog
 
 import (
 	"database/sql"
+	"time"
+	"uptime-monitor/helper"
 	"uptime-monitor/model"
 )
 
@@ -72,4 +74,41 @@ func (r *targetLogRepository) ListByTargetID(targetID string) ([]model.TargetLog
 func (r *targetLogRepository) DeleteByTargetID(targetID string) error {
 	_, err := r.db.Exec(`DELETE FROM target_logs WHERE target_id = ?`, targetID)
 	return err
+}
+
+func (r *targetLogRepository) GetDailyUptimePercentageByTargetID(targetID string) ([]model.DailyUptimeResponse, error) {
+	rows, err := r.db.Query(`
+        SELECT 
+		    target_id,
+            DATE(timestamp) AS date,
+            SUM(CASE WHEN status = 'UP' THEN 1 ELSE 0 END) * 100.0 / COUNT(*) AS uptime_percentage
+        FROM target_logs
+        WHERE target_id = ?
+            AND timestamp >= DATE('now', '-7 days')
+        GROUP BY DATE(timestamp)
+        ORDER BY date ASC
+    `, targetID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	config, _ := helper.LoadConfig()
+	layout := config.DateLayout
+
+	var results []model.DailyUptimeResponse
+	for rows.Next() {
+		var resp model.DailyUptimeResponse
+		var dateStr string
+		if err := rows.Scan(&resp.TargetID, &dateStr, &resp.UptimePercentage); err != nil {
+			return nil, err
+		}
+		parsedDate, err := time.Parse(layout, dateStr)
+		if err != nil {
+			return nil, err
+		}
+		resp.Date = parsedDate
+		results = append(results, resp)
+	}
+	return results, nil
 }

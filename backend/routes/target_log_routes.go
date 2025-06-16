@@ -18,4 +18,8 @@ func RegisterTargetLogRoutes(r chi.Router, db *sql.DB) {
 		r.Get("/", targetLogHandler.GetLogsByTargetID)
 		r.Delete("/", targetLogHandler.DeleteLogsByTargetID)
 	})
+
+	r.Route("/targets/{id}/uptime", func(r chi.Router) {
+		r.Get("/daily", targetLogHandler.GetDailyUptimePercentageByTargetID)
+	})
 }

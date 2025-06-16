@@ -8,4 +8,5 @@ type TargetLogRepository interface {
 	CountRecentFailures(targetID string, limit int) (int, error)
 	ListByTargetID(targetID string) ([]model.TargetLog, error)
 	DeleteByTargetID(targetID string) error
+	GetDailyUptimePercentageByTargetID(targetID string) ([]model.DailyUptimeResponse, error)
 }

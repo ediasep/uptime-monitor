@@ -8,7 +8,7 @@ import {
 
 
 import { useEffect, useState } from "react";
-import { ChatIcon, PencilIcon, TrashBinIcon } from "../../icons";
+import { ChatIcon, DocsIcon, FileIcon, PencilIcon, TrashBinIcon } from "../../icons";
 import { useNavigate } from "react-router";
 import Badge from "../ui/badge/Badge";
 
@@ -40,6 +40,10 @@ export default function TargetTable() {
 
   const onEdit = (id: string) => {
     navigate("/targets/edit/" + id);
+  };
+
+  const onDetail = (id: string) => {
+    navigate("/targets/detail/" + id);
   };
 
   return (
@@ -132,10 +136,10 @@ export default function TargetTable() {
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400 text-center align-middle">
                     <span
-                      className="flex justify-center items-center h-full cursor-pointer"
-                      onClick={() => onEdit(target.id)}
+                      className="flex justify-center items-center cursor-pointer"
                     >
-                      <PencilIcon width={21} height={21} />
+                      <PencilIcon width={21} height={21} onClick={() => onEdit(target.id)}/>
+                      <DocsIcon width={21} height={21} onClick={() => onDetail(target.id)}/>
                     </span>
                   </TableCell>
                 </TableRow>

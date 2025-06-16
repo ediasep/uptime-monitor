@@ -190,3 +190,39 @@ TailAdmin React.js Free Version is released under the MIT License.
 
 If you find this project helpful, please consider giving it a star on GitHub. Your support helps us continue developing
 and maintaining this template.
+
+## Updating Swagger Documentation (Backend)
+
+The backend API uses Swagger (OpenAPI) documentation generated from Go code annotations.
+
+### How to Update Swagger Docs
+
+1. **Edit or Add Annotations:**
+   - In your Go handler files (e.g., `backend/handler/`), update or add Swagger annotations above your handler functions.
+   - Example:
+     ```go
+     // @Summary      Get all targets
+     // @Description  Retrieve all uptime monitoring targets
+     // @Tags         targets
+     // @Accept       json
+     // @Produce      json
+     // @Success      200  {array}   model.Target
+     // @Router       /targets [get]
+     ```
+
+2. **Generate the Swagger Spec:**
+   - Make sure you have [swag](https://github.com/swaggo/swag) installed:
+     ```sh
+     go install github.com/swaggo/swag/cmd/swag@latest
+     ```
+   - From the `backend` directory, run:
+     ```sh
+     swag init -g cmd/server/main.go
+     ```
+   - This will generate or update the `docs/` folder with the OpenAPI spec.
+
+3. **View the Updated Docs:**
+   - Restart your backend server if it's running.
+   - Open [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html) in your browser to view the updated API documentation.
+
+---

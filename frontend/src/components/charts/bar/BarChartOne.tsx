@@ -1,7 +1,12 @@
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-export default function BarChartOne() {
+interface BarChartOneProps {
+  categories: string[];
+  series?: { name: string; data: number[] }[];
+}
+
+export default function BarChartOne({ categories, series }: BarChartOneProps) {
   const options: ApexOptions = {
     colors: ["#465fff"],
     chart: {
@@ -29,20 +34,7 @@ export default function BarChartOne() {
       colors: ["transparent"],
     },
     xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: categories,
       axisBorder: {
         show: false,
       },
@@ -81,16 +73,18 @@ export default function BarChartOne() {
       },
     },
   };
-  const series = [
+
+  const defaultSeries = [
     {
       name: "Sales",
       data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
     },
   ];
+
   return (
     <div className="max-w-full overflow-x-auto custom-scrollbar">
       <div id="chartOne" className="min-w-[1000px]">
-        <Chart options={options} series={series} type="bar" height={180} />
+        <Chart options={options} series={series || defaultSeries} type="bar" height={300} />
       </div>
     </div>
   );

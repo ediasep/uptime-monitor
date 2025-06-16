@@ -24,3 +24,11 @@ func (s *TargetLogService) GetLogsByTargetID(targetID string) ([]model.TargetLog
 func (s *TargetLogService) DeleteLogsByTargetID(targetID string) error {
 	return s.repo.DeleteByTargetID(targetID)
 }
+
+func (s *TargetLogService) GetDailyUptimePercentageByTargetID(targetID string) ([]model.DailyUptimeResponse, error) {
+	dailyUptime, err := s.repo.GetDailyUptimePercentageByTargetID(targetID)
+	if err != nil {
+		return nil, err
+	}
+	return dailyUptime, nil
+}

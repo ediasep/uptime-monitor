@@ -7,6 +7,7 @@ import { ScrollToTop } from "./components/common/ScrollToTop";
 import All from "./pages/Targets/All";
 import Create from "./pages/Targets/Create";
 import Edit from "./pages/Targets/Edit";
+import Detail from "./pages/Targets/Detail";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route index path="/" element={<All />} />
             <Route path="/targets/create" element={<Create />} />
             <Route path="/targets/edit/:id" element={<Edit />} />
+            <Route path="/targets/detail/:id" element={<Detail />} />
           </Route>
 
           {/* Auth Layout */}

@@ -1,4 +1,4 @@
-.PHONY: run setup frontend backend refresh-deps
+.PHONY: run setup frontend backend refresh-deps update-swagger
 
 run: setup
 	npx concurrently "cd backend && air" "npm --prefix frontend run dev"
@@ -25,3 +25,7 @@ refresh-deps:
 	@echo "Refreshing frontend and backend dependencies..."
 	cd frontend && npm install
 	cd backend && go mod tidy
+
+update-swagger:
+	@echo "Generating Swagger docs..."
+	cd backend && swag init -g cmd/server/main.go

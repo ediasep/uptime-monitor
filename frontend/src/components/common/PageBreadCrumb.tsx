@@ -2,17 +2,24 @@ import { Link } from "react-router";
 
 interface BreadcrumbProps {
   pageTitle: string;
+  pageDescription?: string;
 }
 
-const PageBreadcrumb: React.FC<BreadcrumbProps> = ({ pageTitle }) => {
+const PageBreadcrumb: React.FC<BreadcrumbProps> = ({ pageTitle, pageDescription }) => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-      <h2
-        className="text-xl font-semibold text-gray-800 dark:text-white/90"
-        x-text="pageName"
-      >
-        {pageTitle}
-      </h2>
+      <div>
+        <h2
+          className="text-xl font-semibold text-gray-800 dark:text-white/90"
+          x-text="pageName"
+        >
+          {pageTitle}
+          
+        </h2>
+        <p>
+          {pageDescription && <span className="text-sm text-gray-400 dark:text-gray-400">{pageDescription}</span>}
+        </p>
+      </div>
       <nav>
         <ol className="flex items-center gap-1.5">
           <li>

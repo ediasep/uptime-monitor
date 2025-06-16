@@ -58,3 +58,25 @@ func (h *TargetLogHandler) DeleteLogsByTargetID(w http.ResponseWriter, r *http.R
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+// GetDailyUptimePercentageByTargetID godoc
+// @Summary      Get daily uptime percentage by target ID
+// @Description  Calculate the daily uptime percentage for a specific target
+// @Tags         target-logs
+// @Accept       json
+// @Produce      json
+// @Param        id   path      string   true  "Target ID"
+// @Success      200  {object}  model.DailyUptimeResponse
+// @Failure      404  {string}  string "Target not found"
+// @Failure      500  {string}  string "Failed to calculate uptime percentage"
+// @Router       /targets/{id}/uptime/daily [get]
+func (h *TargetLogHandler) GetDailyUptimePercentageByTargetID(w http.ResponseWriter, r *http.Request) {
+	targetID := chi.URLParam(r, "id")
+	percentage, err := h.service.GetDailyUptimePercentageByTargetID(targetID)
+	if err != nil {
+		http.Error(w, "Failed to calculate uptime percentage", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(percentage)
+}

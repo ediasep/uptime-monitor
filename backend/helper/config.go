@@ -8,6 +8,7 @@ type Config struct {
 	Driver          string
 	DSN             string
 	TimestampLayout string
+	DateLayout      string
 }
 
 func LoadConfig() (*Config, error) {
@@ -23,10 +24,15 @@ func LoadConfig() (*Config, error) {
 	if layout == "" {
 		layout = "2006-01-02 15:04:05.999999-07:00" // Default to Go's layout for datetime with timezone
 	}
+	dateLayout := os.Getenv("DATE_LAYOUT")
+	if dateLayout == "" {
+		dateLayout = "2006-01-02" // Default to Go's layout for date
+	}
 
 	return &Config{
 		Driver:          driver,
 		DSN:             dsn,
 		TimestampLayout: layout,
+		DateLayout:      dateLayout,
 	}, nil
 }
