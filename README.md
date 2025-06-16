@@ -106,6 +106,6 @@ The backend API uses Swagger (OpenAPI) documentation generated from Go code anno
 |----------------------|------------------------------------------|
 | `make run`           | Start both frontend & backend            |
 | `make refresh-deps`  | Force re-install frontend/backend deps   |
-| `make update-swagger`| Update swagger documentation (require swag installed)             |
+| `make update-swagger`| Update swagger documentation (requires swag to be installed)             |
 
 ---
