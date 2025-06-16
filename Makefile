@@ -28,4 +28,4 @@ refresh-deps:
 
 update-swagger:
 	@echo "Generating Swagger docs..."
-	cd backend && swag init -g cmd/server/main.go
+	cd backend && swag init -g ./cmd/server/main.go
