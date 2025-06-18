@@ -42,7 +42,9 @@ export default function Detail() {
                 setSeries([
                     {
                         name: "Uptime (%)",
-                        data: uptimeData.map((item: any) => item.uptime_percentage),
+                        data: uptimeData.map((item: any) =>
+                          Math.round(item.uptime_percentage * 100) / 100
+                        ),
                     },
                 ]);
                 setName(targetData.name);

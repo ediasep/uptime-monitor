@@ -20,8 +20,8 @@ export default function BarChartOne({ categories, series }: BarChartOneProps) {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "39%",
-        borderRadius: 5,
+        columnWidth: "30px",
+        borderRadius: 10,
         borderRadiusApplication: "end",
       },
     },
